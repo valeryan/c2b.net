@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  c2bnet:
+    image: c2bnet
+    container_name: c2bnet
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    environment:
+      - 'VIRTUAL_HOST=${WEB_HOST}'
+      - 'VIRTUAL_NETWORK=${PROXY_HOST}'
+      - VIRTUAL_PORT=5000
+      - 'LETSENCRYPT_HOST=${WEB_HOST}'
+      - 'LETSENCRYPT_EMAIL=${LE_EMAIL}'
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - ./app:/app:rw
+    networks:
+      - proxy-net
+networks:
+  proxy-net:
+    external:
+      name: home-server_proxy-tier

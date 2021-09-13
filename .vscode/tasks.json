@@ -1,0 +1,43 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/app/c2b.net.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run docker-compose up",
+            "type": "docker-compose",
+            "dependsOn": [
+                "build"
+            ],
+            "dockerCompose": {
+              "up": {
+                "detached": true,
+                "build": true
+              },
+              "files": [
+                "${workspaceFolder}/docker-compose.yml"
+              ]
+            }
+          },
+          {
+              "label": "Run docker-compose down",
+              "type": "docker-compose",
+              "dockerCompose": {
+                "down": {},
+                "files": [
+                  "${workspaceFolder}/docker-compose.yml"
+                ]
+              }
+            }
+    ]
+}

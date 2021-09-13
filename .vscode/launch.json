@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Core Launch & Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "preLaunchTask": "Run docker-compose up",
+            "postDebugTask": "Run docker-compose down",
+            "processId": 1,
+            "sourceFileMap": {
+                "/app": "${workspaceRoot}/app/"
+            },
+            "pipeTransport": {
+                "pipeProgram": "docker",
+                "pipeArgs": [ "exec", "-i", "c2bnet" ],
+                "debuggerPath": "/vsdbg/vsdbg",
+                "pipeCwd": "${workspaceRoot}",
+                "quoteArgs": false
+            }
+        }
+    ]
+}
